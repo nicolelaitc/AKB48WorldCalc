@@ -33,9 +33,9 @@ I expect I will update this app by completely remove the SQL database annd login
 MIT
 
 ## Credit
-I made it alone (with the help ofg ChatGPT) 
+I made it alone (with the help of ChatGPT) 
 ### Inspiration 
-https://fgosim.github.io/Material/ -> It is a really great calculator-type of things for mobile app 
+https://fgosim.github.io/Material/ -> It is a really great calculator-type of things for mobile game
 
 
 
