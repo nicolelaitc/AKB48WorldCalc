@@ -1,0 +1,196 @@
+<!--input data for calculation-->
+
+{% extends "layout.html" %}
+
+{% block title %}
+Simulation
+{% endblock %}
+
+{% block main %}
+<style>
+  th,
+  td,
+  tr,
+  table {
+
+    border: 1px black;
+  }
+
+  .reminder {
+    display: none;
+    position: absolute;
+    top: 20px;
+    /* Adjust as needed */
+    left: 20px;
+    /* Adjust as needed */
+    width: 200px;
+    /* Adjust as needed */
+    padding: 10px;
+    background-color: aquamarine;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    /* Ensure it's above other elements */
+  }
+</style>
+
+
+
+<div class=disclaimer>
+  <h2 class="disclaimer"> Disclaimer </h2>
+
+  <ol class="disclaimer">
+    <li><b>The final score is only for reference.</b> There are still some unidentified factors that slightly affect the
+      score.
+    </li>
+    <li>The skill level of the cards can affect how easy it is to activate their skills. Yet, this calculator does not
+      take that into account.</li>
+    <li>The calculator is currently cannot deals with skills that related to the opponents, and it will lead to
+      significant errors in vs battle. </li>
+  </ol>
+
+
+</div>
+
+<br>
+<form action="/calculator" method="post">
+  {{ form.csrf_token }}
+
+  <!-- First Table: About your team and Today's Bonus -->
+  <table>
+
+    <colgroup>
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 10%;">
+
+    </colgroup>
+
+    <tr>
+      <th>Production Skill</th>
+      <th colspan="2">Today's Bonus</th>
+      <th>Stage type</th>
+      <th colspan="2">Level Weighting (+/-) <svg id="question-icon" height="16" width="16" onClick="toggleReminder()">
+          <use xlink:href="../static/question.svg#question"></use>
+        </svg></th>
+      <p id="reminder" class="reminder">Put down the number shown in the levels. If nothing shows, type "0". </p>
+
+      <th colspan="2">The Opponent</th>
+    <tr>
+      <td><input type="text" class="uniform-input" id="production" name="production" value="{{ form.production.data}}">
+      </td>
+      </td>
+      <td>Target: </td>
+      <td><select class="uniform-input" name="today_target_team" id="today_target_team">
+          {% for item in today_target_teams %}
+          <option value="{{ item }}" {% if item==form.today_target_team.data %} selected {% endif %}>
+            {{ item }}</option>
+          {% endfor %}
+        </select></td>
+      <td>
+        <select class="uniform-input" name="stage" id="stage">
+          {% for item in stages %}
+          <option value="{{ item }}" {% if item==form.stage.data %} selected {% endif %}>
+            {{ item }}</option>
+          {% endfor %}
+        </select>
+      </td>
+      <td>singing (%):</td>
+      <td><input type="number" class="uniform-input" id="singing" name="singing" value="{{ form.singing.data }}"></td>
+      <td>Target Score:</td>
+      <td><input type="number" class="uniform-input" id="target" name="target" value="{{ form.target.data }}" size="10">
+      </td>
+
+    </tr>
+    <tr>
+      <td></td>
+      <td>Skill Type: </td>
+      <td><select class="uniform-input" name="today_skill" id="today_skill">
+          {% for item in today_skills %}
+          <option value="{{ item }}" {% if item==form.today_skill.data %} selected {% endif %}>
+            {{ item }}</option>
+          {% endfor %}
+        </select></td>
+      <td></td>
+      <td>dancing (%):</td>
+      <td><input type="number" class="uniform-input" id="dancing" name="dancing" value="{{ form.dancing.data }}"></td>
+      <td rowspan="2">Are all the opponent's cards from the same team?
+      </td>
+      <td>
+        <select class="uniform-input " name="opponent" id="opponent">
+          {% for item in opponent_team %}
+          <option value="{{ item }}" {% if item==form.opponent.data %} selected {% endif %}>
+            {{ item }}</option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Rate (%): </td>
+      <td><input type="number" class="uniform-input" id="bonus_rate" name="bonus_rate"
+          value="{{ form.bonus_rate.data}}">
+      </td>
+      <td></td>
+      <td>variety (%):</td>
+      <td><input type="number" class="uniform-input" id="variety" name="variety" value="{{ form.variety.data }}"> </td>
+    </tr>
+    <tr>
+      <td>
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>style (%):</td>
+      <td><input type="number" class="uniform-input" id="style" name="style" value="{{ form.style.data }}">
+      </td>
+    </tr>
+
+    </tr>
+    <td></td>
+
+    <tr>
+
+
+    </tr>
+    <tr>
+
+    </tr>
+    <tr>
+
+    </tr>
+  </table>
+
+  </div>
+
+
+  <button class="btn btn-dark" id="submit" name="submit" value="submit" type="submit">Submit</button>
+
+
+</form>
+
+<script>
+  function toggleReminder() {
+    var reminder = document.getElementById("reminder");
+    var icon = document.getElementById('question-icon');
+
+    if (reminder.style.display === "none" || reminder.style.display === "") {
+      var rect = icon.getBoundingClientRect();
+      reminder.style.display = "block";
+      reminder.style.top = (rect.top + window.scrollY + rect.height) + 'px'; // Position below the icon
+      reminder.style.left = (rect.left + window.scrollX) + 'px'; // Align with the icon's left side
+    } else {
+      reminder.style.display = "none";
+    }
+  }
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,108 @@
+<!-- show card collections-->
+
+{% extends "layout.html" %}
+
+{% block title %}
+My card
+{% endblock %}
+
+{% block main %}
+<style>
+    table {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        padding: 10px;
+        width: 98%;
+
+    }
+
+    th {
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        font-size: 18px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #BFBEDA;
+    }
+</style>
+<h1>Your current card collection</h1>
+
+<table>
+    <colgroup>
+        <col span="1" style="width: 2%;">
+        <col span="1" style="width: 5%;">
+        <col span="1" style="width: 2%;">
+        <col span="1" style="width: 5%;">
+        <col span="1" style="width: 3%;">
+        <col span="1" style="width: 3%;">
+        <col span="1" style="width: 3%;">
+        <col span="1" style="width: 3%;">
+        <col span="1" style="width: 3%;">
+        <col span="1" style="width: 3%;">
+        <col span="1" style="width: 3%;">
+        <col span="1" style="width: 3%;">
+        <col span="1" style="width: 5%;">
+        <col span="1" style="width: 3%;">
+        <col span="1" style="width: 3%;">
+
+
+    </colgroup>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Theme</th>
+            <th>Team</th>
+            <th>Member</th>
+            <th>singing</th>
+            <th>dancing</th>
+            <th>variety</th>
+            <th>style</th>
+            <th>Total</th>
+            <th>Skill Type</th>
+            <th>Skill Target</th>
+            <th>Skill Rate</th>
+            <th>Cheer For</th>
+            <th>Cheering Attribute</th>
+            <th>Cheer Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cards %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.theme }}</td>
+            <td>{{ item.team }}</td>
+            <td>{{ item.member }}</td>
+            <td>{{ item.singing }}</td>
+            <td>{{ item.dancing }}</td>
+            <td>{{ item.variety }}</td>
+            <td>{{ item.style }}</td>
+            <td>{{ item.Total }}</td>
+            <td>{{ item.skill_type }}</td>
+            <td>{{ item.skill_target }}</td>
+            <td>{{ item.skill_rate }}%</td>
+            <td>{{ item.cheer }}</td>
+            <td>{{ item.cheer_skill }}</td>
+            <td>{{ item.cheer_rate }}%</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<br>
+
+<h1>Pick the card you want to edit or delete:</h1>
+<form action="/card" method="post">
+    {{ form.csrf_token }}
+    ID: <input type="number" id="id" name="id">
+    <button type="submit" class="btn btn-dark" id="edit" name="edit" value="edit">Edit</button>
+    <button type="submit" class="btn btn-danger" id="delete" name="delete" value="delete">Delete</button>
+
+</form>
+
+
+
+{% endblock %}

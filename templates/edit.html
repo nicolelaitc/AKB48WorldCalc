@@ -1,0 +1,178 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Editing
+{% endblock %}
+
+{% block main %}
+
+
+
+
+<style>
+    th {
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+
+    th,
+    td {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+</style>
+
+
+<h2>Editing</h2>
+
+
+<form action="/edit" method="post">
+    {{ form.csrf_token }}
+    id:
+    <input type="text" class="uniform-input" id="id" name="id" value={{id}} size="5" readonly><br><br>
+    <table>
+        <colgroup>
+            <col span="1" style="width: 3%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 3%;">
+            <col span="1" style="width: 20%;">
+        </colgroup>
+
+        <tr>
+            <th>Card</th>
+            <th></th>
+            <th></th>
+            <th>Attribute</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Theme:</td>
+            <td>
+                <select class="uniform-input" name="theme" id="theme">
+                    {% for item in themes %}
+                    <option value="{{ item }}" {% if item==form.theme.data %} selected {% endif %}>
+                        {{ item }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td></td>
+            <td>singing: </td>
+            {# add Japanese name/icon of the attribute#}
+            <td>
+                <input type="number" class="uniform-input" id="singing" name="singing" value="{{form.singing.data}}">
+            </td>
+        </tr>
+        <tr>
+            <td> Team: </td>
+            <td>
+                <select class="uniform-input" id="team" name="team" class="dropdowncheck">
+                    {% for item in teams %}
+                    <option value="{{ item }}" {% if item==form.team.data %} selected {% endif %}>
+                        {{ item }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td></td>
+            <td> dancing: </td>
+            <td><input type="number" class="uniform-input" id="dancing" name="dancing" value="{{form.dancing.data}}">
+            </td>
+        </tr>
+        <tr>
+            <td> Member: </td>
+            <td><select class="uniform-input" name="member" id="member">
+                    {% for item in members %}
+                    <option value="{{ item }}" {% if item==form.member.data %} selected {% endif %}>
+                        {{ item }}</option>
+                    {% endfor %}
+                </select></td>
+            <td></td>
+            <td> variety: </td>
+            <td><input type="number" class="uniform-input" id="variety" name="variety" value="{{form.variety.data}}">
+            </td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td> </td>
+            <td></td>
+            <td> style: </td>
+            <td> <input type="number" class="uniform-input" id="style" name="style" value="{{form.style.data}}"></td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td> </td>
+            <td></td>
+            <td> Total: </td>
+            <td><input type="number" class="uniform-input" id="total" name="total" value="{{form.total.data}}"></td>
+        </tr>
+        <tr>
+            <td><br></td>
+            <td> </td>
+            <td> </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Skill</th>
+            <th></th>
+            <th></th>
+            <th>Cheers</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>Target</td>
+            <td>
+                <select class="uniform-input" name="skill_target" id="skill_target">
+                    {% for item in skill_targets_list %}
+                    <option value="{{ item }}" {% if item==form.skill_target.data %} selected {% endif %}>
+                        {{ item }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td></td>
+            <td> Member: </td>
+            <td><select class="uniform-input" name="cheer" id="cheer">
+                    {% for item in members %}
+                    <option value="{{ item }}" {% if item==form.cheer.data %} selected {% endif %}>
+                        {{ item }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td> Attribute: </td>
+            <td><select class="uniform-input" name="skill_type" id="skill_type">
+                    {% for item in skill_types %}
+                    <option value="{{ item }}" {% if item==form.skill_type.data %} selected {% endif %}>
+                        {{ item }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td></td>
+            <td> Attribute: </td>
+            <td><select class="uniform-input" name="cheer_skill" id="cheer_skill">
+                    {% for item in skill_types %}
+                    <option value="{{ item }}" {% if item==form.cheer_skill.data %} selected {% endif %}>
+                        {{ item }}</option>
+                    {% endfor %}
+                </select></td>
+        </tr>
+        <tr>
+            <td> Rate: </td>
+            <td><input type="number" class="uniform-input" id="skill_rate" name="skill_rate"
+                    value='{{form.skill_rate.data}}'>%</td>
+            <td></td>
+            <td> Rate: </td>
+            <td><input type="number" class="uniform-input" id="cheer_rate" name="cheer_rate"
+                    value="{{form.cheer_rate.data}}">%</td>
+        </tr>
+    </table>
+    <br>
+    <button class="btn btn-dark" id="submit" name="submit" value="submit" type="submit">Submit</button>
+</form>
+<br>
+
+
+
+{% endblock %}

@@ -1,0 +1,23 @@
+<!-- show directory to all other pages and give import/export option -->
+
+<!--write disclaimer about the limitation of the simulator-->
+
+<!-- {# create a template for registration
+should have username, password, confirm password #} -->
+
+{% extends "layout.html" %}
+
+{% block title %}
+Index
+{% endblock %}
+
+{% block main %}
+
+Welcome Back, {{ username }}! <br><br>
+
+<a button type="button" class="btn btn-outline-primary" href="/card">Your Card Collection</a>
+<a button type="button" class="btn btn-outline-success" href="/input">Add a card</a>
+<a button type="button" class="btn btn-outline-dark" href="/calculator">See if you can pass a level</a>
+
+
+{% endblock %}

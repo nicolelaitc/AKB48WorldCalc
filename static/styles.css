@@ -1,0 +1,115 @@
+table {
+    width: 80%;
+    max-width: 1200px;
+    /* Adjust this value based on your design preferences */
+    margin: 0 auto;
+    /* This will center the table on the page */
+    /* Additional global table styles can go here */
+}
+
+
+.disclaimer {
+    background-color: #E08F8F;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #32161F;
+}
+
+ol.disclaimer {
+    text-align: left;
+    width: 80%;
+    padding: 10px;
+
+}
+
+body {
+    background: #EDF6F9;
+}
+
+
+h1 {
+    font: 24px;
+    margin-bottom: 20px;
+    font-family: "Rockwell";
+    Color: #241E4E;
+    padding-top: 10px;
+}
+
+h2 {
+    font: 18px;
+    font-family: "Rockwell";
+    font-weight: lighter;
+    Color: #372E76;
+    padding-top: 10px;
+}
+
+
+table {
+    font-family: "Optima";
+    color: #626267;
+    text-align: left;
+}
+
+p {
+
+    font-family: "Optima";
+    color: #626267;
+
+}
+
+
+
+/* Size for brand */
+nav .navbar-brand {
+    font-size: x-large;
+    font-family: "Copperplate";
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue {
+    color: #537fbe;
+}
+
+nav .navbar-brand .red {
+    color: #ea433b;
+}
+
+nav .navbar-brand .yellow {
+    color: #f5b82e;
+}
+
+nav .navbar-brand .green {
+    color: #2e944b;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: #EDF6F9;
+}
+
+.uniform-input {
+    width: 85%;
+    /* Ensures each input takes up the full width of its container */
+    padding: 8px;
+    /* Adds some padding inside the inputs for better readability */
+    margin: 4px 0;
+    /* Adds some space above and below each input */
+    box-sizing: border-box;
+    /* Includes padding and border in the element's total width and height */
+    border: 1px solid #ccc;
+    /* Standardizes border */
+    border-radius: 4px;
+    /* Slightly rounds the corners of the input boxes */
+}
+
+.input-label {
+    display: block;
+    /* Makes the label take the full width, pushing input below */
+    margin-bottom: 5px;
+    /* Adds space between the label and the input it's associated with */
+}

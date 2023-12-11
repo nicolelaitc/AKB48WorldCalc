@@ -1,0 +1,81 @@
+<!-- editing those custom member list -->
+
+{% extends "layout.html" %}
+
+{% block title %}
+Member/Theme List
+{% endblock %}
+
+{% block main %}
+
+<style>
+    th,
+    td {
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: 1px white;
+    }
+
+    table {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        padding: 20px;
+        width: 70%;
+    }
+</style>
+
+<p>In here, you can take a look at your custom member/theme list that shows in the card input/edit page.</p>
+<p>
+    Deleting any item here will not affect the inputted cards.
+</p>
+
+
+<table>
+    <colgroup>
+        <col span="1" style="width: 8%;">
+        <col span="1" style="width: 23%;">
+        <col span="1" style="width: 23%;">
+        <col span="1" style="width: 23%;">
+        <col span="1" style="width: 23%;">
+    </colgroup>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Customised member</th>
+            <th>Customised theme</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for index in range(maxlength) %}
+        <tr>
+            <td>{{ index + 1 }}</td>
+            <td>{{ members_other[index] if index < members_other|length else '' }}</td>
+            <td>{{ themes_other[index] if index < themes_other|length else '' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<table>
+    <p></p>
+    <form action="/memberlist" method="post">
+        {{ form.csrf_token }}
+        <p>What type of items do you want to delete?
+            <select id="item_type" name="item_type" value="{{form.item_type.data}}">
+                <option value=""></option>
+                <option value="member">member</option>
+                <option value="theme">theme</option>
+            </select>
+        </p>
+        <p>Please input the id of the member/theme that you want to delete
+            <input type="number" id="var" name="var" value="{{form.var.data}}">
+        </p>
+        <button class="btn btn-dark" id="submit" name="submit" value="submit" type="submit">Submit</button>
+
+    </form>
+</table>
+
+{% endblock %}

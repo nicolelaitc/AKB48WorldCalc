@@ -1,0 +1,137 @@
+<!-- give the calculation result-->
+
+{% extends "layout.html" %}
+
+{% block title %}
+Calculation result
+{% endblock %}
+
+{% block main %}
+<style>
+    .result {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        padding: 10px;
+        width: 70%;
+    }
+
+    .data {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid grey;
+    }
+</style>
+<h1>The best set of card</h1>
+<h2> Main Set </h2>
+<table class="result">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Theme</th>
+            <th>Team</th>
+            <th>Member</th>
+            <th>Weighted Total</th>
+            <th>Skill Total</th>
+            <th>Today's Bonus</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in range(4) %}
+        <tr>
+            <td>{{ best_card[i]["id"] }}</td>
+            <td>{{ best_card[i]["theme"] }}</td>
+            <td>{{ best_card[i]["team"] }}</td>
+            <td>{{ best_card[i]["member"] }}</td>
+            <td>{{ best_card[i]["weighted_total"] }}</td>
+            <td>{{ best_card[i]["skill_total"]}}</td>
+            <td>{{ best_card[i]["today_bonus"]}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<p> Captain of the team: {{ best_stat["leader"] }} </p>
+<h2> Support </h2>
+
+<table class="result">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Theme</th>
+            <th>Team</th>
+            <th>Member</th>
+            <th>Cheer</th>
+            <th>Total supporting point</th>
+    </thead>
+    <tbody>
+        {% for i in range(4) %}
+        <tr>
+            <td>{{ best_support[i]["id"] }}</td>
+            <td>{{ best_support[i]["theme"] }}</td>
+            <td>{{ best_support[i]["team"] }}</td>
+            <td>{{ best_support[i]["member"] }}</td>
+            <td>{{ best_support[i]["cheer"] }}</td>
+            <td>{{ best_support[i]["support_total"]}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<br>
+
+<h1>Scoring breakdown </h1>
+
+<table class="data">
+    <colgroup>
+        <col span="1" style="width: 75%;">
+        <col span="1" style="width: 25%;">
+    </colgroup>
+    {# talk about if these combination can match the target with no teammate skill activate #}
+    <tr>
+        <th style="border-bottom:1px solid grey"> Target Score </th>
+        <td style="border-bottom:1px solid grey"> {{best_stat["target"]}} </td>
+    </tr>
+    <tr>
+        <th>Sum of their weighting total</th>
+        <td> {{ best_stat["weighted_total"] }} </td>
+    </tr>
+    <tr>
+        <th>Sum of the today's bonus</th>
+        <td> {{ best_stat["today_bonus"] }} </td>
+    </tr>
+    <tr>
+        <th>(If all skills activated) Sum of their skill bonus</th>
+        <td> {{ best_stat["skill_total"] }} </td>
+    </tr>
+    <tr>
+        <th>Same team bonus </th>
+        <td> {{ best_stat["team_bonus"] }} </td>
+    </tr>
+    <tr>
+        <th> Effect on team power ranking </th>
+        <td> {{ best_stat["power_ranking_bonus"] }} </td>
+    </tr>
+    <tr>
+        <th> Same theme bonus </th>
+        <td> {{ best_stat["theme_bonus"] }} </td>
+    </tr>
+    <tr>
+        <th style="border-bottom:1px solid grey">Sum of the support and cheer </th>
+        <td style="border-bottom:1px solid grey"> {{ best_stat["support_total"] }} </td>
+    </tr>
+    <tr>
+        <th> Total (The possible maximum)</th>
+        <td> {{best_stat["total_max"] }} </td>
+    </tr>
+    <tr>
+        <th> Total if no teammate skill was activated (The possible minimum)</th>
+        <td> {{best_stat["total_min"] }} </td>
+    </tr>
+
+</table>
+
+{% endblock %}
