@@ -287,7 +287,6 @@ def calculator():
         form.opponent.choices = opponent_team
 
         if form.validate() == False:
-            print(form.errors)
             error_msg = printErrorMsgs(form.errors)
             flash(error_msg)
             return render_template(
@@ -316,8 +315,6 @@ def calculator():
             "production": form.production.data,
         }
 
-        log_app_data("Data", form_data_dict)
-
         cards_raw = cursor.execute(
             "select * from cards where user_id=?", user_id
         ).fetchall()
@@ -342,7 +339,6 @@ def calculator():
             for card in best_support:
                 card = convert_to_int(card)
             best_stat = convert_to_int(best_stat)
-            print(best_stat)
             return render_template(
                 "calculator_result.html",
                 best_stat=best_stat,
@@ -509,7 +505,6 @@ def login():
         if not rows or not check_password_hash(rows["hash"], password):
             flash("invalid username and/or password")
             return redirect(request.path)
-        print("login successful!")
 
         # Remember which user has logged in
         session["user_id"] = rows["id"]

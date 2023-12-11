@@ -1,7 +1,6 @@
 from itertools import combinations
 from src.enum_app import *
 from flask import flash
-from src.helpers import log_app_data
 import math
 
 
@@ -11,13 +10,11 @@ def calculation(cards: list[any], data: dict) -> (list[any], dict, str):
 
     # Sort the cardbank
     sorted_cards = sorted(weighted_cards, key=lambda card: card["total"], reverse=True)
-    log_app_data("sorted_cards", sorted_cards)
 
     # Filter cards by stage
     qualified_cards, qualified_cards_indice = filter_cards_by_stage(
         sorted_cards, data["stage"]
     )
-    log_app_data("qualified_cards", qualified_cards)
 
     # Verify if there are enough cards
     if len(qualified_cards) < 8:
@@ -45,8 +42,6 @@ def calculation(cards: list[any], data: dict) -> (list[any], dict, str):
             current_support.append(card)
 
         current_stat = empty_stat()
-        log_app_data("current_cards_initialised", current_cards)
-        log_app_data("current_support_initialised", current_support)
 
         current_stat["weighted_total"] = sum(
             [card["weighted_total"] for card in current_cards]
@@ -55,7 +50,6 @@ def calculation(cards: list[any], data: dict) -> (list[any], dict, str):
         current_stat["today_bonus"] = sum(
             [card["today_bonus"] for card in current_cards]
         )
-        log_app_data("current_stat after adding total", current_stat)
 
         # power ranking and same team bonus
         if all(card["team"] == current_cards[0]["team"] for card in current_cards):
@@ -66,14 +60,11 @@ def calculation(cards: list[any], data: dict) -> (list[any], dict, str):
             current_stat["total_min"] += (
                 current_stat["team_bonus"] + current_stat["power_ranking_bonus"]
             )
-        log_app_data("current_stat after team bonus", current_stat)
-        log_app_data("current_card after team bonus", current_cards)
+
         # same theme bonus
         if all(card["theme"] == current_cards[0]["theme"] for card in current_cards):
             current_stat["theme_bonus"] = int(current_stat["total_min"] * 0.05)
             current_stat["total_min"] += current_stat["theme_bonus"]
-        log_app_data("current_stat after theme bonus", current_stat)
-        log_app_data("current_card after theme bonus", current_cards)
 
         # check team skill
         for card in current_cards:
@@ -89,7 +80,6 @@ def calculation(cards: list[any], data: dict) -> (list[any], dict, str):
                         if c["member"] != card["member"] and c["team"] == team
                     ]
                 )
-        log_app_data("current_card after team skill", current_cards)
         # support
         for card in current_support:
             current_stat["support_total"] += card["support_total"]
@@ -107,9 +97,7 @@ def calculation(cards: list[any], data: dict) -> (list[any], dict, str):
         current_stat["total_max"] = (
             current_stat["total_min"] + current_stat["skill_total"]
         )
-        log_app_data("current_stat after support", current_stat)
-        log_app_data("current_card after support", current_cards)
-        log_app_data("current_support", current_support)
+
         # check who is the best leader (skill will always be activated)
         leader_skill_total = 0
         current_stat["leader"] = current_cards[0]["member"]
@@ -119,7 +107,6 @@ def calculation(cards: list[any], data: dict) -> (list[any], dict, str):
                 current_stat["leader"] = card["member"]
 
         current_stat["total_min"] += leader_skill_total
-        log_app_data("current_stat after leader", current_stat)
 
         # compare with the current best
         if (current_stat["total_max"] > best_stat["total_max"]) and (
@@ -148,12 +135,8 @@ def calculation(cards: list[any], data: dict) -> (list[any], dict, str):
         )
     else:
         flash_msg = "error"
-        print(best_stat, data, best_cards)
         best_cards, best_stat = None, None
 
-    log_app_data("best_stat", best_stat)
-    log_app_data("best_cards", best_cards)
-    log_app_data("best_supports", best_supports)
     return best_cards, best_stat, best_supports, flash_msg
 
 
