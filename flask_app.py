@@ -30,7 +30,8 @@ csrf = CSRFProtect()
 csrf.init_app(app)
 
 # use sqlite3 database
-db = sqlite3.connect(database="database/akb48world.db", check_same_thread=False)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, "akb48world.db")
 db.row_factory = sqlite3.Row
 cursor = db.cursor()
 

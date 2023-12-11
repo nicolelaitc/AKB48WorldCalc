@@ -1,2 +1,4 @@
 Flask
 WTForms
+Flask_wtf
+flask_session
