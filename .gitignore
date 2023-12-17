@@ -4,3 +4,4 @@ __pycache__
 flask_session
 .vemv
 .vscode
+.DS_Store
