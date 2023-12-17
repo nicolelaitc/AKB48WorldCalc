@@ -32,7 +32,6 @@ csrf.init_app(app)
 # use sqlite3 database
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, "akb48world.db")
-print("db_path", db_path)
 db = sqlite3.connect(db_path, check_same_thread=False)
 db.row_factory = sqlite3.Row
 cursor = db.cursor()
@@ -66,7 +65,6 @@ def index():
         if not user:
             session.clear()
             return redirect("/login")
-        print("user:", user)
         username = user["username"]
         return render_template("index.html", username=username)
 
@@ -106,7 +104,7 @@ def input():
         form.cheer.choices = members
 
         if form.validate() == False:
-            flash(printErrorMsgs(form.errors))
+            flash(error_msg_to_string(form.errors))
             return render_template(
                 "input.html",
                 themes=themes,
@@ -224,7 +222,7 @@ def edit():
         form.cheer.choices = members
 
         if form.validate() == False:
-            error_msg = printErrorMsgs(form.errors)
+            error_msg = error_msg_to_string(form.errors)
             flash(error_msg)
             return render_template(
                 "input.html",
@@ -294,7 +292,7 @@ def calculator():
         form.opponent.choices = opponent_team
 
         if form.validate() == False:
-            error_msg = printErrorMsgs(form.errors)
+            error_msg = error_msg_to_string(form.errors)
             flash(error_msg)
             return render_template(
                 "calculator.html",
@@ -302,7 +300,7 @@ def calculator():
                 today_target_teams=today_target_teams,
                 today_skills=today_skills,
                 stages=stages,
-                opponent_cards=opponent_team,
+                opponent_team=opponent_team,
             )
 
         # get the data from the form
@@ -338,7 +336,7 @@ def calculator():
                 today_target_teams=today_target_teams,
                 today_skills=today_skills,
                 stages=stages,
-                opponent_cards=opponent_team,
+                opponent_team=opponent_team,
             )
         else:
             for card in best_cards:
@@ -454,7 +452,7 @@ def get_today_target_teams():
 
 
 def get_today_skills():
-    return ["singing", "dancing", "variety", "style", "All"]
+    return [t.display_name() for t in SkillTypes] + ["All"]
 
 
 def get_stages():
@@ -497,7 +495,7 @@ def login():
         form = loginForm(request.form)
 
         if form.validate() == False:
-            error_msg = printErrorMsgs(form.errors)
+            error_msg = error_msg_to_string(form.errors)
             flash(error_msg)
             return render_template("login.html", form=form)
 
@@ -548,7 +546,7 @@ def register():
         username, password = form.username.data, form.password.data
 
         if form.validate() == False:
-            error_msg = printErrorMsgs(form.errors)
+            error_msg = error_msg_to_string(form.errors)
             flash(error_msg)
             return render_template("register.html", form=form)
 
@@ -605,7 +603,7 @@ def memberlist():
         form = memberListForm(request.form)
         user_id = str(session["user_id"])
         if form.validate() == False:
-            flash(printErrorMsgs(form.errors))
+            flash(error_msg_to_string(form.errors))
             return render_template("memberlist.html", form=form)
 
         item_type = form.item_type.data

@@ -27,17 +27,15 @@ Member/Theme List
     }
 </style>
 
-<p>In here, you can take a look at your custom member/theme list that shows in the card input/edit page.</p>
-<p>
-    Deleting any item here will not affect the inputted cards.
-</p>
-
+<div class="notice">
+    <ol class="notice">
+        <ul>Here, you can view your custom member/theme list, which is displayed on the card input/edit page.</ul>
+        <ul>Deleting any item from this list will not affect the cards you have already inputted.</ul>
+    </ol>
+</div>
 
 <table>
     <colgroup>
-        <col span="1" style="width: 8%;">
-        <col span="1" style="width: 23%;">
-        <col span="1" style="width: 23%;">
         <col span="1" style="width: 23%;">
         <col span="1" style="width: 23%;">
     </colgroup>
@@ -58,7 +56,8 @@ Member/Theme List
         {% endfor %}
     </tbody>
 </table>
-
+<br>
+<br>
 <table>
     <p></p>
     <form action="/memberlist" method="post">

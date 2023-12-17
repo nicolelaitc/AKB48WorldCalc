@@ -22,26 +22,11 @@ def login_required(f):
     return decorated_function
 
 
-def printErrorMsgs(error) -> str:
-    print(error)
+def error_msg_to_string(error) -> str:
     error_msg = ""
-    error_messages = {
-        "This field is required.": " is required.",
-        "Not a valid integer value.": " must be a number.",
-        "Number must be at least 0.": " must be a positive number.",
-        "Number must be between 1 and 99.": " must be between 1 and 99.",
-        "Choices cannot be None.": " cannot be empty.",
-        "Field must be equal to password.": " must be equal to the password.",
-        "Cheer and member cannot be the same": " Cheer and member cannot be the same.",
-        "Total is not correct": "Total is not correct.",
-    }
-
     for field in error:
-        for key, value in error_messages.items():
-            if key in error[field]:
-                error_msg += f"The {field} field{value}\n "
-            else:
-                error_msg += f"{field}: {value}"
+        s = ". ".join(error[field])
+        error_msg += f"{field.capitalize()}: {s}\n"
 
     print(error_msg)
 

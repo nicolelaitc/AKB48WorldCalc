@@ -44,11 +44,13 @@ class InputForm(FlaskForm):
         if (
             form.singing.data + form.dancing.data + form.style.data + form.variety.data
         ) != field.data:
-            raise validators.ValidationError("Total is not correct")
+            raise validators.ValidationError("Total is not correct.")
 
     def validate_cheer(form, field):
         if field.data == form.member.data:
-            raise validators.ValidationError("Cheer and member cannot be the same")
+            raise validators.ValidationError(
+                "Cheer member and card member cannot be the same."
+            )
 
 
 class editForm(FlaskForm):

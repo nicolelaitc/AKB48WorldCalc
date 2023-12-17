@@ -21,6 +21,7 @@ def calculation(cards: list[any], data: dict) -> (list[any], dict, str):
         return (
             None,
             None,
+            None,
             "You need to have at least 8 eligible cards to run the simulator!",
         )
 

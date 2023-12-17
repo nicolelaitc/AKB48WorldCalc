@@ -14,6 +14,14 @@ table {
     margin-left: auto;
     margin-right: auto;
     color: #32161F;
+
+}
+
+.notice {
+    background-color: aliceblue;
+    margin-left: auto;
+    margin-right: auto;
+    color: darkblue;
 }
 
 ol.disclaimer {

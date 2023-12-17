@@ -20,9 +20,15 @@ Add Your Card
 </style>
 
 <h1> Input the details of the card </h1>
-<p> You can either create a new card record or modifying your existing card!</p>
-<p> If you cannot find the theme/members you desired, please click "Other" in the dropdown and fill the blank next to
-    it.</p>
+<div>
+    <ol class="notice">
+        <ul>You can either create a new card record or modifying your existing card!</ul>
+        <ul>If you cannot find the theme/members you desired, please click "Other" in the dropdown and fill the blank
+            next to
+            it.</ul>
+    </ol>
+</div>
+
 <form action="/input" method="post">
     {{ form.csrf_token }}
 
