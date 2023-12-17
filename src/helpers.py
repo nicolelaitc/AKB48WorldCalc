@@ -33,12 +33,15 @@ def printErrorMsgs(error) -> str:
         "Choices cannot be None.": " cannot be empty.",
         "Field must be equal to password.": " must be equal to the password.",
         "Cheer and member cannot be the same": " Cheer and member cannot be the same.",
+        "Total is not correct": "Total is not correct.",
     }
 
     for field in error:
         for key, value in error_messages.items():
             if key in error[field]:
-                error_msg += f"The {field} field{value}\n"
+                error_msg += f"The {field} field{value}\n "
+            else:
+                error_msg += f"{field}: {value}"
 
     print(error_msg)
 
