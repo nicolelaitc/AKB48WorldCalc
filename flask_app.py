@@ -32,6 +32,7 @@ csrf.init_app(app)
 # use sqlite3 database
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, "akb48world.db")
+print("db_path", db_path)
 db = sqlite3.connect(db_path, check_same_thread=False)
 db.row_factory = sqlite3.Row
 cursor = db.cursor()
@@ -62,6 +63,10 @@ def index():
         user = cursor.execute(
             "select * from users where id=?", (session["user_id"],)
         ).fetchone()
+        if not user:
+            session.clear()
+            return redirect("/login")
+        print("user:", user)
         username = user["username"]
         return render_template("index.html", username=username)
 
@@ -500,7 +505,7 @@ def login():
         password = form.password.data
         # Query database for username
         rows = cursor.execute(
-            "SELECT username FROM users WHERE username=?", (username,)
+            "SELECT * FROM users WHERE username=?", (username,)
         ).fetchone()
 
         # Ensure username exists and password is correct
@@ -534,7 +539,6 @@ def logout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
-    # -check birthdays -
     # when requested via GET, display registration form
     if request.method == "GET":
         form = registerForm()
@@ -552,7 +556,6 @@ def register():
             "SELECT username FROM users WHERE username=?", (username,)
         )
 
-        # any field left ba
         # username being taken
         if len(check_duplicate.fetchall()) != 0:
             flash("The username has been taken.")
