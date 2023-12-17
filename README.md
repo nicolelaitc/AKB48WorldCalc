@@ -1,8 +1,10 @@
 # AKB48WorldCalc
-## Intro
-This is a coding project I did in Jan 2022. After that, I do not update it regarding on game mechanism.(and I have not played the game ever since). It supposed to be my final project of CS50. Frankly speaking, I was hesitate to publish it since it is very immature in my eyes. Yet I need to have something for my portfolio, so here we are 😂
+The demo website: http://akb48worldcalc.pythonanywhere.com/
 
-The app mainly uses Flask, Bootstrap, HTML and CSS.
+## Introduction
+This is a coding project I did in Jan 2022. After that, I do not update it regarding on game mechanism (and I have not played the game ever since). It supposed to be my final project of CS50. Frankly speaking, I was hesitate to publish it since it is very immature in my eyes. Yet I need to have something for my portfolio, so here we are 😂
+
+The app mainly uses Flask, Bootstrap, HTML and CSS. 
 
 ## Function 
 AKB48World is a typical, boring mobile game: you have cards in your hands, and each level has a target score. You need to figure out what is the best team to pass the level. 
