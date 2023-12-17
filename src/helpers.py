@@ -5,10 +5,6 @@ from itertools import combinations
 
 from flask import redirect, render_template, request, session
 
-db = sqlite3.connect(database="database/akb48world.db", check_same_thread=False)
-db.row_factory = sqlite3.Row
-cursor = db.cursor()
-
 
 def login_required(f):
     """
@@ -49,7 +45,7 @@ def printErrorMsgs(error) -> str:
     return error_msg
 
 
-def get_theme_list(user_id: str) -> list[str]:
+def get_theme_list(cursor: sqlite3.Cursor, user_id: str) -> list[str]:
     themes = cursor.execute(
         "select name from themes where user = ? or user = 0;", (user_id,)
     ).fetchall()
@@ -59,7 +55,7 @@ def get_theme_list(user_id: str) -> list[str]:
     return themes
 
 
-def get_member_list(user_id: str) -> list[str]:
+def get_member_list(cursor, user_id: str) -> list[str]:
     members = cursor.execute(
         "select member from members where user = ? or user = 0;", (user_id,)
     ).fetchall()

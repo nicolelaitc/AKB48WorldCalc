@@ -32,6 +32,7 @@ csrf.init_app(app)
 # use sqlite3 database
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, "akb48world.db")
+db = sqlite3.connect(db_path, check_same_thread=False)
 db.row_factory = sqlite3.Row
 cursor = db.cursor()
 
@@ -70,8 +71,8 @@ def index():
 def input():
     user_id = str(session["user_id"])
     """enter each cards manually"""
-    themes = get_theme_list(user_id)
-    members = get_member_list(user_id)
+    themes = get_theme_list(cursor, user_id)
+    members = get_member_list(cursor, user_id)
     teams = ["A", "K", "B", "4", "8"]
 
     skill_targets_list = [target.display_name() for target in SkillTargets]
@@ -182,8 +183,8 @@ def input():
 @login_required
 def edit():
     user_id = str(session["user_id"])
-    themes = get_theme_list(user_id)
-    members = get_member_list(user_id)
+    themes = get_theme_list(cursor, user_id)
+    members = get_member_list(cursor, user_id)
     teams = ["A", "K", "B", "4", "8"]
 
     skill_targets_list = [target.display_name() for target in SkillTargets]
